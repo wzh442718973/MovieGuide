@@ -45,12 +45,6 @@ class MoviesListingInteractorImpl implements MoviesListingInteractor {
         int selectedOption = sortingOptionStore.getSelectedOption();
         if (selectedOption == SortType.MOST_POPULAR.getValue()) {
             return tmdbWebService.popularMovies(page).map(MoviesWraper::getMovieList);
-        } else if (selectedOption == SortType.HIGHEST_RATED.getValue()) {
-            return tmdbWebService.highestRatedMovies(page).map(MoviesWraper::getMovieList);
-        } else if (selectedOption == SortType.NEWEST.getValue()) {
-            Calendar cal = Calendar.getInstance();
-            String maxReleaseDate = dateFormat.format(cal.getTime());
-            return tmdbWebService.newestMovies(maxReleaseDate, NEWEST_MIN_VOTE_COUNT).map(MoviesWraper::getMovieList);
         } else {
             return Observable.just(favoritesInteractor.getFavorites());
         }
