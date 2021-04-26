@@ -86,14 +86,14 @@ class MovieDetailsPresenterImpl implements MovieDetailsPresenter {
 
     @Override
     public void showFavoriteButton(Movie movie) {
-        boolean isFavorite = favoritesInteractor.isFavorite(movie.getId());
-        if (isViewAttached()) {
-            if (isFavorite) {
-                view.showFavorited();
-            } else {
-                view.showUnFavorited();
-            }
-        }
+//        boolean isFavorite = favoritesInteractor.isFavorite(movie.getId());
+//        if (isViewAttached()) {
+//            if (isFavorite) {
+//                view.showFavorited();
+//            } else {
+//                view.showUnFavorited();
+//            }
+//        }
     }
 
     @Override
