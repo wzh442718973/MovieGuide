@@ -63,10 +63,6 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
     LinearLayout trailers;
     @BindView(R.id.trailers_container)
     HorizontalScrollView horizontalScrollView;
-    @BindView(R.id.reviews_label)
-    TextView reviews;
-    @BindView(R.id.reviews)
-    LinearLayout reviewsContainer;
     @BindView(R.id.favorite)
     FloatingActionButton favorite;
     @BindView(R.id.toolbar)
@@ -168,7 +164,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
                     .override(150, 150);
 
             for (Video trailer : trailers) {
-                View thumbContainer = inflater.inflate(R.layout.video, this.trailers, false);
+                View thumbContainer = inflater.inflate(R.layout.sub_video, this.trailers, false);
                 ImageView thumbView = thumbContainer.findViewById(R.id.video_thumb);
                 thumbView.setTag(R.id.glide_tag, Video.getUrl(trailer));
                 thumbView.requestLayout();
@@ -184,25 +180,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
 
     @Override
     public void showReviews(List<Review> reviews) {
-        if (reviews.isEmpty()) {
-            this.reviews.setVisibility(View.GONE);
-            reviewsContainer.setVisibility(View.GONE);
-        } else {
-            this.reviews.setVisibility(View.VISIBLE);
-            reviewsContainer.setVisibility(View.VISIBLE);
 
-            reviewsContainer.removeAllViews();
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            for (Review review : reviews) {
-                ViewGroup reviewContainer = (ViewGroup) inflater.inflate(R.layout.review, reviewsContainer, false);
-                TextView reviewAuthor = reviewContainer.findViewById(R.id.review_author);
-                TextView reviewContent = reviewContainer.findViewById(R.id.review_content);
-                reviewAuthor.setText(review.getAuthor());
-                reviewContent.setText(review.getContent());
-                reviewContent.setOnClickListener(this);
-                reviewsContainer.addView(reviewContainer);
-            }
-        }
     }
 
     @Override
