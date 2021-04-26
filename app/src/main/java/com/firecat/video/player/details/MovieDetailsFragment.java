@@ -63,8 +63,6 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
     LinearLayout trailers;
     @BindView(R.id.trailers_container)
     HorizontalScrollView horizontalScrollView;
-    @BindView(R.id.favorite)
-    FloatingActionButton favorite;
     @BindView(R.id.toolbar)
     @Nullable
     Toolbar toolbar;
@@ -185,15 +183,12 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
 
     @Override
     public void showFavorited() {
-        favorite.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_white_24dp));
     }
 
     @Override
     public void showUnFavorited() {
-        favorite.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_border_white_24dp));
     }
 
-    @OnClick(R.id.favorite)
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.video_thumb:
@@ -203,11 +198,6 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
             case R.id.review_content:
                 onReviewClick((TextView) view);
                 break;
-
-            case R.id.favorite:
-                onFavoriteClick();
-                break;
-
             default:
                 break;
         }
