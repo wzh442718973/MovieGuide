@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -98,15 +102,29 @@ public class MoviesListingFragment extends Fragment implements MoviesListingView
         sortingDialogFragment.show(getFragmentManager(), "Select Quantity");
     }
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.e("wzh", "onConfigurationChanged: " + newConfig.orientation);
+    }
+
     private void initLayoutReferences() {
         moviesListing.setHasFixedSize(true);
 
-        int columns;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            columns = 2;
-        } else {
-            columns = getResources().getInteger(R.integer.no_of_columns);
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        final int ww = 1080 / 2;
+//        final int ww = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 280, displayMetrics)
+        int columns = (int) (displayMetrics.widthPixels / ww);
+        if(displayMetrics.widthPixels - (columns * ww) >= (ww /2)){
+            columns += 1;
         }
+
+//        int columns;
+//        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            columns = 2;
+//        } else {
+//            columns = getResources().getInteger(R.integer.no_of_columns);
+//        }
         LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(), columns);
 
         moviesListing.setLayoutManager(layoutManager);

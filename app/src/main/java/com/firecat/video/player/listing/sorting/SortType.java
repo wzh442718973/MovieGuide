@@ -4,7 +4,7 @@ package com.firecat.video.player.listing.sorting;
  * @author arun
  */
 public enum SortType {
-    MOST_POPULAR(0), FAVORITES(2);
+    MOST_POPULAR(0), HIGHEST_RATED(1), FAVORITES(2), NEWEST(3);
 
     private final int value;
 

@@ -10,4 +10,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="video_width">150dp</dimen>
     <dimen name="video_height">150dp</dimen>
+
+    <dimen name="columns_width">180dp</dimen>
+    <dimen name="columns_heigh">250dp</dimen>
 </resources>

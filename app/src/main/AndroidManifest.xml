@@ -14,6 +14,7 @@
         <activity
             android:name=".listing.MoviesListingActivity"
             android:launchMode="singleTask"
+            android:configChanges="orientation|screenLayout"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,9 +26,6 @@
             android:name=".details.MovieDetailsActivity"
             android:parentActivityName=".listing.MoviesListingActivity"
             android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".listing.MoviesListingActivity"/>
         </activity>
     </application>
 

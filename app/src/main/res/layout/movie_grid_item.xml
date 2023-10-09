@@ -1,19 +1,21 @@
-<FrameLayout
-    android:id="@+id/movie_container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movie_container"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_margin="3dp"
     android:clickable="true"
-    android:layout_margin="1dp"
-    android:foreground="?attr/selectableItemBackground">
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="#00000000"
+    app:cardCornerRadius="6dp">
 
-    <ImageView
+    <com.firecat.video.player.view.VPosterView
         android:id="@+id/movie_poster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <View
         android:id="@+id/title_background"
@@ -22,7 +24,7 @@
         android:layout_gravity="bottom"
         android:alpha="0.8"
         android:background="@color/colorPrimaryDark"
-        android:gravity="center"/>
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/movie_name"
@@ -33,6 +35,6 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:textColor="@android:color/white"
-        android:textSize="12sp"/>
+        android:textSize="12sp" />
 
-</FrameLayout>
+</androidx.cardview.widget.CardView>

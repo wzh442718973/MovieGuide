@@ -30,8 +30,9 @@ import com.firecat.video.player.R;
 import com.firecat.video.player.Review;
 import com.firecat.video.player.Video;
 import com.firecat.video.player.databinding.FragmentMovieDetailsBinding;
+import com.firecat.video.player.databinding.SubVideoBinding;
+import com.firecat.video.player.view.HPosterView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
     @Inject
     MovieDetailsPresenter movieDetailsPresenter;
 
-    ImageView poster;
+    HPosterView poster;
     CollapsingToolbarLayout collapsingToolbar;
     TextView title;
     TextView releaseDate;
@@ -162,8 +163,8 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
                     .override(150, 150);
 
             for (Video trailer : trailers) {
-                View thumbContainer = inflater.inflate(R.layout.sub_video, this.trailers, false);
-                ImageView thumbView = thumbContainer.findViewById(R.id.video_thumb);
+                SubVideoBinding subVideoBinding = SubVideoBinding.inflate(inflater, this.trailers, false);
+                ImageView thumbView = subVideoBinding.videoThumb;
                 thumbView.setTag(R.id.glide_tag, Video.getUrl(trailer));
                 thumbView.requestLayout();
                 thumbView.setOnClickListener(this);
@@ -171,7 +172,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
                         .load(Video.getThumbnailUrl(trailer))
                         .apply(options)
                         .into(thumbView);
-                this.trailers.addView(thumbContainer);
+                this.trailers.addView(subVideoBinding.getRoot());
             }
         }
     }

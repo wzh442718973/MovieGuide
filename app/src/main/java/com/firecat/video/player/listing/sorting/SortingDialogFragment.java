@@ -30,6 +30,10 @@ public class SortingDialogFragment extends DialogFragment implements SortingDial
     RadioButton mostPopular;
     RadioGroup sortingOptionsGroup;
 
+    RadioButton highestRated;
+    RadioButton favorites;
+    RadioButton newest;
+
     private static MoviesListingPresenter moviesListingPresenter;
 
     public static SortingDialogFragment newInstance(MoviesListingPresenter moviesListingPresenter) {
@@ -54,6 +58,9 @@ public class SortingDialogFragment extends DialogFragment implements SortingDial
 
         mostPopular = binding.mostPopular;
         sortingOptionsGroup = binding.sortingGroup;
+        highestRated = binding.highestRated;
+        favorites = binding.favorites;
+        newest = binding.newest;
 
         initViews();
 
@@ -77,21 +84,34 @@ public class SortingDialogFragment extends DialogFragment implements SortingDial
 
     @Override
     public void setNewestChecked() {
+        newest.setChecked(true);
     }
 
     @Override
     public void setHighestRatedChecked() {
+        highestRated.setChecked(true);
     }
 
     @Override
     public void setFavoritesChecked() {
+        favorites.setChecked(true);
     }
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-        if(R.id.most_popular == checkedId) {
-                sortingDialogPresenter.onPopularMoviesSelected();
-                moviesListingPresenter.firstPage();
+        if (R.id.most_popular == checkedId) {
+            sortingDialogPresenter.onPopularMoviesSelected();
+            moviesListingPresenter.firstPage();
+        } else if (R.id.highest_rated == checkedId) {
+            sortingDialogPresenter.onHighestRatedMoviesSelected();
+            moviesListingPresenter.firstPage();
+        } else if (R.id.favorites == checkedId) {
+            sortingDialogPresenter.onFavoritesSelected();
+            moviesListingPresenter.firstPage();
+        } else if (R.id.newest == checkedId) {
+            sortingDialogPresenter.onNewestMoviesSelected();
+            moviesListingPresenter.firstPage();
+
         }
     }
 

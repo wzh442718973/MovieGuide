@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Firecat Video Player</string>
     <string name="action_filter">Filter</string>
+    <string name="action_link">Privacy Policy</string>
     <string name="loading_movies">Loading Movies</string>
     <string name="sort_by">Sort By</string>
     <string name="movie_guide">MovieGuide</string>
@@ -12,4 +13,6 @@
     <string name="favorites">Favorites</string>
     <string name="most_popular">Most Popular</string>
     <string name="action_search">Search</string>
+    <string name="newest">Newest</string>
+    <string name="highest_rated">Highest Rated</string>
 </resources>

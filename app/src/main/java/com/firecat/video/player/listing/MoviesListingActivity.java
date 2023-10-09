@@ -34,7 +34,7 @@ public class MoviesListingActivity extends AppCompatActivity implements MoviesLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
         setToolbar();
 
         if (findViewById(R.id.movie_details_container) != null) {
@@ -62,8 +62,17 @@ public class MoviesListingActivity extends AppCompatActivity implements MoviesLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sub_menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final MenuItem versionItem = menu.findItem(R.id.action_version);
+        if (versionItem != null) {
+            try {
+                versionItem.setTitle("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+            } catch (Throwable e) {
+
+            }
+        }
+
         final SearchView searchView = (SearchView) searchItem.getActionView();
         final MoviesListingFragment mlFragment = (MoviesListingFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_listing);
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {

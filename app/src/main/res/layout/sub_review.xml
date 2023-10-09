@@ -16,6 +16,11 @@
         android:lineSpacingMultiplier="1.2"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@android:color/white"
+        android:shadowColor="#000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:textSize="25sp"
         tools:text="Travis Bell"/>
 
     <TextView

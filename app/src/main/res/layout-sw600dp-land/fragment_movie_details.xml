@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="wrap_content"
         android:elevation="4dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -19,12 +19,13 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll">
 
-            <ImageView
+            <com.firecat.video.player.view.HPosterView
                 android:id="@+id/movie_poster"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="200dp"
                 android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"/>
+                />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -51,6 +52,10 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/white"
+                android:shadowColor="#000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
                 android:textSize="32sp"/>
 
             <TextView
@@ -80,6 +85,10 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/summary"
+                android:shadowColor="#000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@android:color/white"/>
 
