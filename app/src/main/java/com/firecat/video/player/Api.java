@@ -9,6 +9,10 @@ public class Api {
     static final String YOUTUBE_VIDEO_URL = "https://www.youtube.com/watch?v=%1$s";
     static final String YOUTUBE_THUMBNAIL_URL = "https://img.youtube.com/vi/%1$s/0.jpg";
 
+    public static final String TMDB_BASE_URL = "https://api.themoviedb.org/";
+
+    public static final String TMDB_API_KEY="78cd7c35074dbe3548f20068e58bf0aa"; //69f8d44407d7b73a4103add4c76fccb6
+
     private Api() {
         // hide implicit public constructor
     }

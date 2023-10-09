@@ -1,6 +1,7 @@
 package com.firecat.video.player.network;
 
-import com.firecat.video.player.BuildConfig;
+
+import com.firecat.video.player.Api;
 
 import java.io.IOException;
 
@@ -29,7 +30,7 @@ public class RequestInterceptor implements Interceptor {
         HttpUrl originalHttpUrl = original.url();
 
         HttpUrl url = originalHttpUrl.newBuilder()
-                .addQueryParameter("api_key", BuildConfig.TMDB_API_KEY)
+                .addQueryParameter("api_key", Api.TMDB_API_KEY)
                 .build();
 
         Request request = original.newBuilder().url(url).build();

@@ -1,35 +1,33 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 
-def getProperty(String filename, String propName) {
-    def propsFile = rootProject.file(filename)
-    if (propsFile.exists()) {
-        def props = new Properties()
-        props.load(new FileInputStream(propsFile))
-        if (props[propName] != null) {
-            return props[propName]
-        } else {
-            print("No such property " + propName + " in file " + filename)
-        }
-    } else {
-        print(filename + " does not exist!")
-    }
-}
+//def getProperty(String filename, String propName) {
+//    def propsFile = rootProject.file(filename)
+//    if (propsFile.exists()) {
+//        def props = new Properties()
+//        props.load(new FileInputStream(propsFile))
+//        if (props[propName] != null) {
+//            return props[propName]
+//        } else {
+//            print("No such property " + propName + " in file " + filename)
+//        }
+//    } else {
+//        print(filename + " does not exist!")
+//    }
+//}
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '28.0.3'
-
+    namespace 'com.firecat.video.player'
+    compileSdkVersion 34
     defaultConfig {
         applicationId "com.firecat.video.player"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "String", "TMDB_API_KEY", "\"${getProperty("local.properties", "tmdb_api_key")}\""
-        buildConfigField "String", "TMDB_BASE_URL", "\"https://api.themoviedb.org/\""
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        buildConfigField "String", "TMDB_API_KEY", "\"69f8d44407d7b73a4103add4c76fccb6\""
+//        buildConfigField "String", "TMDB_BASE_URL", "\"https://api.themoviedb.org/\""
     }
     buildTypes {
         release {
@@ -38,19 +36,23 @@ android {
         }
     }
 
-    lintOptions {
-        disable 'InvalidPackage'
+    buildFeatures{
+        viewBinding true
     }
-
-    packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
-        exclude 'META-INF/rxjava.properties'
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+//
+//    lintOptions {
+//        disable 'InvalidPackage'
+//    }
+//
+//    packagingOptions {
+//        exclude 'META-INF/services/javax.annotation.processing.Processor'
+//        exclude 'META-INF/rxjava.properties'
+//    }
+//
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 ext {
@@ -64,11 +66,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //Support
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'com.google.android.material:material:1.10.0'
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//    implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.palette:palette:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.1'
     implementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
 
     // Rx
@@ -79,26 +81,29 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.2.0'
 
     // Network
-    implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+    implementation "com.squareup.okhttp3:okhttp:4.2.2"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.2.2"
     implementation 'com.github.bumptech.glide:glide:4.2.0'
 
     // Other
     implementation 'net.jcip:jcip-annotations:1.0'
-    implementation 'com.google.guava:guava:18.0'
+//    implementation 'com.google.guava:guava:18.0'
     implementation 'com.squareup.moshi:moshi:1.9.2'
-    implementation 'com.jakewharton:butterknife:10.2.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+//    implementation 'com.jakewharton:butterknife:10.2.0'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
     // Dependency Injection
-    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
-    implementation "com.google.dagger:dagger:${daggerVersion}"
-    compileOnly 'javax.annotation:jsr250-api:1.0'
+    annotationProcessor "com.google.dagger:dagger-compiler:2.5"
+    implementation "com.google.dagger:dagger:2.5"
+//    compileOnly 'javax.annotation:jsr250-api:1.0'
 
     // Retrofit 2
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
     implementation 'com.squareup.retrofit2:converter-moshi:2.6.2'
+
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    annotationProcessor("javax.annotation:javax.annotation-api:1.3.2")
 
     // Tests
 //    testImplementation 'junit:junit:4.12'

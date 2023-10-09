@@ -20,6 +20,7 @@ import com.firecat.video.player.BaseApplication;
 import com.firecat.video.player.Constants;
 import com.firecat.video.player.Movie;
 import com.firecat.video.player.R;
+import com.firecat.video.player.databinding.FragmentMoviesBinding;
 import com.firecat.video.player.listing.sorting.SortingDialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -30,21 +31,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class MoviesListingFragment extends Fragment implements MoviesListingView {
     @Inject
     MoviesListingPresenter moviesPresenter;
 
-    @BindView(R.id.movies_listing)
     RecyclerView moviesListing;
 
     private RecyclerView.Adapter adapter;
     private List<Movie> movies = new ArrayList<>(20);
     private Callback callback;
-    private Unbinder unbinder;
 
     public MoviesListingFragment() {
         // Required empty public constructor
@@ -66,10 +62,12 @@ public class MoviesListingFragment extends Fragment implements MoviesListingView
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_movies, container, false);
-        unbinder = ButterKnife.bind(this, rootView);
+        FragmentMoviesBinding binding = FragmentMoviesBinding.inflate(inflater, container, false);
+
+        moviesListing = binding.moviesListing;
         initLayoutReferences();
-        return rootView;
+
+        return binding.getRoot();
     }
 
     @Override
@@ -87,8 +85,7 @@ public class MoviesListingFragment extends Fragment implements MoviesListingView
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_sort:
+        if(R.id.action_sort == item.getItemId()) {
                 moviesPresenter.firstPage();
                 displaySortingOptions();
         }
@@ -160,7 +157,6 @@ public class MoviesListingFragment extends Fragment implements MoviesListingView
     public void onDestroyView() {
         super.onDestroyView();
         moviesPresenter.destroy();
-        unbinder.unbind();
     }
 
     @Override

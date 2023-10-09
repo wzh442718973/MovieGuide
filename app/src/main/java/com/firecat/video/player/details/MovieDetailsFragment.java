@@ -29,6 +29,7 @@ import com.firecat.video.player.Movie;
 import com.firecat.video.player.R;
 import com.firecat.video.player.Review;
 import com.firecat.video.player.Video;
+import com.firecat.video.player.databinding.FragmentMovieDetailsBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,39 +37,24 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class MovieDetailsFragment extends Fragment implements MovieDetailsView, View.OnClickListener {
     @Inject
     MovieDetailsPresenter movieDetailsPresenter;
 
-    @BindView(R.id.movie_poster)
     ImageView poster;
-    @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbar;
-    @BindView(R.id.movie_name)
     TextView title;
-    @BindView(R.id.movie_year)
     TextView releaseDate;
-    @BindView(R.id.movie_rating)
     TextView rating;
-    @BindView(R.id.movie_description)
     TextView overview;
-    @BindView(R.id.trailers_label)
     TextView label;
-    @BindView(R.id.trailers)
     LinearLayout trailers;
-    @BindView(R.id.trailers_container)
     HorizontalScrollView horizontalScrollView;
-    @BindView(R.id.toolbar)
     @Nullable
     Toolbar toolbar;
 
     private Movie movie;
-    private Unbinder unbinder;
 
     public MovieDetailsFragment() {
         // Required empty public constructor
@@ -92,10 +78,24 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_movie_details, container, false);
-        unbinder = ButterKnife.bind(this, rootView);
+
+        FragmentMovieDetailsBinding binding = FragmentMovieDetailsBinding.inflate(inflater, container, false);
+
+
+        poster = binding.moviePoster;
+        collapsingToolbar = binding.collapsingToolbar;
+        title = binding.movieName;
+        releaseDate = binding.movieYear;
+        rating = binding.movieRating;
+        overview = binding.movieDescription;
+        label = binding.trailersAndReviews.trailersLabel;
+        trailers = binding.trailersAndReviews.trailers;
+        horizontalScrollView = binding.trailersAndReviews.trailersContainer;
+        toolbar = binding.toolbar;
+
+
         setToolbar();
-        return rootView;
+        return binding.getRoot();
     }
 
     @Override
@@ -190,16 +190,11 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
     }
 
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.video_thumb:
-                onThumbnailClick(view);
-                break;
-
-            case R.id.review_content:
-                onReviewClick((TextView) view);
-                break;
-            default:
-                break;
+        final int id = view.getId();
+        if(R.id.video_thumb == id) {
+            onThumbnailClick(view);
+        }else if(R.id.review_content == id) {
+            onReviewClick((TextView) view);
         }
     }
 
@@ -225,7 +220,6 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
     public void onDestroyView() {
         super.onDestroyView();
         movieDetailsPresenter.destroy();
-        unbinder.unbind();
     }
 
     @Override

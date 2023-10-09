@@ -16,11 +16,12 @@
 
 package com.firecat.video.player.util;
 
+import static com.bumptech.glide.util.Preconditions.checkNotNull;
+
 import androidx.test.espresso.IdlingResource;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A simple counter implementation of {@link IdlingResource} that determines idleness by
@@ -48,6 +49,7 @@ public final class SimpleCountingIdlingResource implements IdlingResource {
     public SimpleCountingIdlingResource(String resourceName) {
         mResourceName = checkNotNull(resourceName);
     }
+
 
     @Override
     public String getName() {

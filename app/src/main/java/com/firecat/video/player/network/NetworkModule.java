@@ -1,7 +1,8 @@
 package com.firecat.video.player.network;
 
 
-import com.firecat.video.player.BuildConfig;
+
+import com.firecat.video.player.Api;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,11 +38,11 @@ public class NetworkModule {
         builder.connectTimeout(CONNECT_TIMEOUT_IN_MS, TimeUnit.MILLISECONDS)
                 .addInterceptor(requestInterceptor);
 
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            builder.addInterceptor(loggingInterceptor);
-        }
+//        if (com.firecat.video.player.BuildConfig.DEBUG) {
+//            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+//            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//            builder.addInterceptor(loggingInterceptor);
+//        }
 
         return builder.build();
     }
@@ -51,7 +52,7 @@ public class NetworkModule {
     Retrofit retrofit(OkHttpClient okHttpClient) {
         return new Retrofit
                 .Builder()
-                .baseUrl(BuildConfig.TMDB_BASE_URL)
+                .baseUrl(Api.TMDB_BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)

@@ -21,11 +21,10 @@ import com.bumptech.glide.request.transition.Transition;
 import com.firecat.video.player.Api;
 import com.firecat.video.player.Movie;
 import com.firecat.video.player.R;
+import com.firecat.video.player.databinding.MovieGridItemBinding;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author arun
@@ -36,18 +35,18 @@ public class MoviesListingAdapter extends RecyclerView.Adapter<MoviesListingAdap
     private MoviesListingView view;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.movie_poster)
         ImageView poster;
-        @BindView(R.id.title_background)
         View titleBackground;
-        @BindView(R.id.movie_name)
         TextView name;
 
         public Movie movie;
 
-        public ViewHolder(View root) {
-            super(root);
-            ButterKnife.bind(this, root);
+        public ViewHolder(MovieGridItemBinding binding) {
+            super(binding.getRoot());
+
+            poster = binding.moviePoster;
+            titleBackground = binding.titleBackground;
+            name = binding.movieName;
         }
 
         @Override
@@ -64,9 +63,7 @@ public class MoviesListingAdapter extends RecyclerView.Adapter<MoviesListingAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View rootView = LayoutInflater.from(context).inflate(R.layout.movie_grid_item, parent, false);
-
-        return new ViewHolder(rootView);
+        return new ViewHolder(MovieGridItemBinding.inflate(LayoutInflater.from(context), parent, false));
     }
 
     @Override

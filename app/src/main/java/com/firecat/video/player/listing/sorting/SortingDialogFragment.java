@@ -14,13 +14,11 @@ import androidx.fragment.app.DialogFragment;
 
 import com.firecat.video.player.BaseApplication;
 import com.firecat.video.player.R;
+import com.firecat.video.player.databinding.SortingOptionsBinding;
 import com.firecat.video.player.listing.MoviesListingPresenter;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * @author arun
@@ -29,13 +27,10 @@ public class SortingDialogFragment extends DialogFragment implements SortingDial
     @Inject
     SortingDialogPresenter sortingDialogPresenter;
 
-    @BindView(R.id.most_popular)
     RadioButton mostPopular;
-    @BindView(R.id.sorting_group)
     RadioGroup sortingOptionsGroup;
 
     private static MoviesListingPresenter moviesListingPresenter;
-    private Unbinder unbinder;
 
     public static SortingDialogFragment newInstance(MoviesListingPresenter moviesListingPresenter) {
         SortingDialogFragment.moviesListingPresenter = moviesListingPresenter;
@@ -54,12 +49,16 @@ public class SortingDialogFragment extends DialogFragment implements SortingDial
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate(R.layout.sorting_options, null);
-        unbinder = ButterKnife.bind(this, dialogView);
+
+        SortingOptionsBinding binding = SortingOptionsBinding.inflate(inflater);
+
+        mostPopular = binding.mostPopular;
+        sortingOptionsGroup = binding.sortingGroup;
+
         initViews();
 
         Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(dialogView);
+        dialog.setContentView(binding.getRoot());
         dialog.setTitle(R.string.sort_by);
         dialog.show();
         return dialog;
@@ -90,11 +89,9 @@ public class SortingDialogFragment extends DialogFragment implements SortingDial
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-        switch (checkedId) {
-            case R.id.most_popular:
+        if(R.id.most_popular == checkedId) {
                 sortingDialogPresenter.onPopularMoviesSelected();
                 moviesListingPresenter.firstPage();
-                break;
         }
     }
 
@@ -107,6 +104,5 @@ public class SortingDialogFragment extends DialogFragment implements SortingDial
     public void onDestroyView() {
         super.onDestroyView();
         sortingDialogPresenter.destroy();
-        unbinder.unbind();
     }
 }
